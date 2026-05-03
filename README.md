@@ -32,7 +32,7 @@ Evaluate and compare scheduling algorithms based on:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/HammamAlRawabdeh/OS-Project.git
    ```
 2. Navigate to the project folder
 3. Run each algorithm from its respective folder (see structure below)
@@ -44,7 +44,7 @@ Evaluate and compare scheduling algorithms based on:
 /SJF         → C++ implementation (Ghaith)
 /RR          → C implementation (Abdullah)
 /Priority    → C implementation (Hammam)
-/SRTF  → Python implementation (Khaled)
+/SRTF        → Python implementation (Khaled)
 ```
 
 ## 👥 Team Members

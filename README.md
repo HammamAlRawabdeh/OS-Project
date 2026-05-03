@@ -12,7 +12,7 @@ Each team member implements one algorithm using a chosen programming language, a
 * Round Robin (RR)
 * Shortest Job First (SJF)
 * Priority Scheduling (Non-Preemptive)
-* (Optional: SRTF or second SJF implementation for comparison)
+* Shortest Remaining Time First (SRTF)
 
 ## 🎯 Objective
 
@@ -44,7 +44,7 @@ Evaluate and compare scheduling algorithms based on:
 /SJF         → C++ implementation (Ghaith)
 /RR          → C implementation (Abdullah)
 /Priority    → C implementation (Hammam)
-/SJF-Python  → Python implementation (Khaled)
+/SRTF  → Python implementation (Khaled)
 ```
 
 ## 👥 Team Members
@@ -53,7 +53,7 @@ Evaluate and compare scheduling algorithms based on:
 * Ghaith — SJF (C++)
 * Abdullah — Round Robin (C)
 * Hammam — Priority Scheduling (Non-Preemptive, C)
-* Khaled — SJF / (Suggested: SRTF) (Python)
+* Khaled — SRTF (Python)
 
 ## 📊 Results
 

@@ -67,5 +67,5 @@ Results are presented using tables and/or visual comparisons.
 ## 📄 Notes
 
 This project follows course guidelines and includes both implementation and analysis of CPU scheduling algorithms.
-[View Project Guidelines](./OS_Project_Guidelines)
-[View Report Grade Form](./Report_Grade_Form)
+[View Project Guidelines](./OS_Project_Guidelines.pdf)
+[View Report Grade Form](./Report_Grade_Form.pdf)

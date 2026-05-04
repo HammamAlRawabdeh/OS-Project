@@ -2,9 +2,9 @@
 
 ## 📌 Overview
 
-This project is developed for the Operating Systems course (CS11335). It focuses on implementing and comparing CPU scheduling algorithms to evaluate their performance.
+This project is developed for the Operating Systems course (CS11335). It focuses on implementing and comparing CPU scheduling algorithms to evaluate their performance. 
 
-Each team member implements one algorithm using a chosen programming language, and all implementations are analyzed together.
+To ensure highly accurate comparisons and adhere strictly to project guidelines, the team has engineered a **Centralized Interactive Evaluator** built entirely in C++. This CLI tool allows users to input a single set of processes and test them across multiple algorithms sequentially to observe differences in efficiency.
 
 ## ⚙️ Implemented Algorithms
 
@@ -16,44 +16,28 @@ Each team member implements one algorithm using a chosen programming language, a
 
 ## 🎯 Objective
 
-Evaluate and compare scheduling algorithms based on:
-
+Evaluate and compare scheduling algorithms using a shared, identical dataset based on:
 * Average Waiting Time
 * Average Turnaround Time
 
 ## 🛠️ Technologies Used
 
-* C
-* C++
-* Python
+* C++ (Standard Library)
+* Object-Oriented Programming (OOP) architecture for process data encapsulation.
 
 ## ▶️ How to Run
 
 1. Clone the repository:
-
    ```bash
-   git clone https://github.com/HammamAlRawabdeh/OS-Project.git
-   ```
-2. Navigate to the project folder
-3. Run each algorithm from its respective folder (see structure below)
-
-## 📁 Project Structure
-
-```
-/FCFS        → C++ implementation (Assad)
-/SJF         → C++ implementation (Ghaith)
-/RR          → C implementation (Abdullah)
-/Priority    → C implementation (Hammam)
-/SRTF        → Python implementation (Khaled)
-```
+   git clone [https://github.com/HammamAlRawabdeh/OS-Project.git](https://github.com/HammamAlRawabdeh/OS-Project.git)
 
 ## 👥 Team Members
 
-* Assad — FCFS (C++)
-* Ghaith — SJF (C++)
-* Abdullah — Round Robin (C)
-* Hammam — Priority Scheduling (Non-Preemptive, C)
-* Khaled — SRTF (Python)
+* Assad — FCFS
+* Ghaith — SJF
+* Abdullah — Round Robin
+* Hammam — Priority Scheduling (Non-Preemptive)
+* Khaled — SRTF
 
 ## 📊 Results
 
@@ -62,7 +46,7 @@ The performance of each algorithm is evaluated using:
 * Average Waiting Time
 * Average Turnaround Time
 
-Results are presented using tables and/or visual comparisons.
+Results are presented using tables.
 
 ## 📄 Notes
 

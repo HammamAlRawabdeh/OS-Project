@@ -53,3 +53,68 @@ Results are presented using tables.
 This project follows course guidelines and includes both implementation and analysis of CPU scheduling algorithms.
 [View Project Guidelines](./OS_Project_Guidelines.pdf)
 [View Report Grade Form](./Report_Grade_Form.pdf)
+
+
+## 🧠 How It Works (Under the Hood)
+
+To guarantee that our performance comparisons are 100% accurate, the evaluator uses a **Master State Architecture**:
+1. **Single Input Phase:** The user is prompted only once to enter the Arrival Time, Burst Time, and Priority for all processes. 
+2. **Data Encapsulation:** This data is stored in a master vector of `Process` objects, protecting the initial state.
+3. **Pass-by-Value Execution:** When the user selects an algorithm from the menu, the evaluator passes a *fresh copy* of the master list to the function. This ensures that process mutations (like updating remaining burst times or marking a process as completed) do not corrupt the data for the next algorithm.
+
+## 💻 Sample Execution
+
+Below is an example of what the interactive terminal looks like when testing the **Priority Scheduling (Non-Preemptive)** algorithm with a 5-process dataset.
+```text
+=== CPU Scheduling Algorithms Evaluator ===
+Enter Number of Processes: 5
+
+--- Process P1 ---
+Arrival Time: 0
+Burst Time: 5
+Priority (Lower number = Higher priority): 3
+
+... [Inputs for P2, P3, P4, P5] ...
+
+=========================================
+What scheduling algorithm would you try?
+For First-Come First-Served enter (FCFS)
+For Round Robin enter (RR)
+For Shortest Job First enter (SJF)
+For Priority Scheduling Non-Preemptive enter (Priority)
+For Shortest Remaining Time First enter (SRTF)
+Enter choice: Priority
+
+>>> Running Priority <<<
+
+--- Execution Trace ---
+Time 0: Process P1 starts execution.
+Time 5: Process P1 finishes.
+Time 5: Process P2 starts execution.
+Time 9: Process P2 finishes.
+Time 9: Process P3 starts execution.
+Time 11: Process P3 finishes.
+Time 11: CPU is IDLE.
+Time 12: CPU is IDLE.
+Time 13: CPU is IDLE.
+Time 14: CPU is IDLE.
+Time 15: Process P4 starts execution.
+Time 16: Process P4 finishes.
+Time 16: Process P5 starts execution.
+Time 19: Process P5 finishes.
+
+================ Final Results ================
+Process AT      BT      Pri     CT      TAT     WT
+-----------------------------------------------
+P1      0       5       3       5       5       0
+P2      2       4       1       9       7       3
+P3      3       2       4       11      8       6
+P4      15      1       2       16      1       0
+P5      16      3       5       19      3       0
+-----------------------------------------------
+Average Turnaround Time = 4.80
+Average Waiting Time    = 1.80
+===============================================
+
+Do you want to try another algorithm for the same processes? (y/n):
+

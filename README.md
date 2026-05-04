@@ -29,7 +29,7 @@ Evaluate and compare scheduling algorithms using a shared, identical dataset bas
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/HammamAlRawabdeh/OS-Project.git](https://github.com/HammamAlRawabdeh/OS-Project.git)
+   git clone https://github.com/HammamAlRawabdeh/OS-Project.git
 
 ## 👥 Team Members
 

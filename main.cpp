@@ -218,7 +218,9 @@ void runRR(vector<Process> p, int time_quantum) {
 }
 
 void runSJF(vector<Process> p) {
-    cout << "\n[Ghaith's SJF Logic Goes Here]\n";
+    sjf sjfScheduler(p);
+    sjfScheduler.answer();
+    printResults(p);
 }
 
 void runSRTF(vector<Process> p) {

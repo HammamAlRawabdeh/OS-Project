@@ -5,9 +5,10 @@
 using namespace std;
 
 // process class alone
-
+class sjf;
 class Process {
-private:
+protected:
+    friend class sjf;
     string id;  // id = Process ID (e.g., "P1")
     int at, bt, pri;    // at = Arrival Time (When it enters the ready queue)
                         // bt = Burst Time (How much CPU time it needs)

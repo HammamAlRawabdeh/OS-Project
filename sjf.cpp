@@ -1,125 +1,113 @@
-// Source: https://usaco.guide/general/io
 
 #include<iostream>
 #include <queue>
 #include <vector>
-
+#include <algorithm>
+#include "Process.cpp"
 using namespace std;
 
 
-struct process 
+class sjf
 {
-    
-    //  Burst Time is the the time left that the process needs to complete
-    static int NextId;
-    int Id;
-    int ArivalTime;
-    int BurstTime;
-    int Priority;
-    int TotalWatingTime;
-    // to calculate total waiting time I will add a variable for this wait period start starts at the arrival time and each time the proccess is preemtively switched it changes to that time
-    int WaitPeriodStart;
-
-    //constructor AT arival time , bt burst time , p priority 
-        process(int AT,int BT,int P = 1) {   
-        this -> ArivalTime = AT;
-        this -> BurstTime = BT;
-        this -> Priority = P;
-        TotalWatingTime=0;
-        WaitPeriodStart = ArivalTime;
-        Id=NextId;
-        NextId++;
-        }
-        
-
-    // comperator for sjf
-};
-int process::NextId=1;
-
-
-
-struct sjf
-{
+public:
     //comperators 
-        static  bool compsjf(const process & l ,const process & r){
-               return l.BurstTime > r.BurstTime;
-             }
+    static  bool compsjf(const Process& l, const Process& r) {
+        return l.bt > r.bt;
+    }
 
-        static bool compArivalTime (const process & l ,const process & r){
-               return l.ArivalTime < r.ArivalTime;
-             }
+    static bool compat(const Process& l, const Process& r) {
+        return l.at < r.at;
+    }
 
-    // containers to store proccesses 
-        priority_queue<process,vector<process>,decltype(& sjf::compsjf )> sjfQueue{sjf::compsjf};
-        vector<process>input;
+    // containers to store Processes 
+    priority_queue<Process, vector<Process>, decltype(&sjf::compsjf)> sjfQueue{ sjf::compsjf };
 
-    // variables used for calculation
-        long double AverageWaitTime; // = summation(StartTime-ArivalTime)/ProcessCount
-        long double AverageTurnAroundTime; // = summation(EndTime-StartTime)/ProcessCount
-        int ProcessCount;
-        int CurTime;
-
-    //constructor
-    sjf(vector<process>& given )
+    sjf(vector<Process> given)
     {
         input = given;
         ProcessCount = (int)given.size();
-        AverageWaitTime = 0;
-        AverageTurnAroundTime = 0;
+        TotalWaitTime = 0;
+        TotalTurnAroundTime = 0;
         CurTime = 0;
     }
 
-    //Main Logic 
+    int  getTotalWaitTime() const { return TotalWaitTime; }
+    int  getTotalTurnAroundTime() const { return TotalTurnAroundTime; }
     void answer()
     {
-        // clean previous use and sort proccesses on arrival time
+        // clean previous use and sort Processes on arrival time
         initailize();
 
         // main logic 
 
         int ArrivalIndex = 0;
-        while(ArrivalIndex != ProcessCount || !sjfQueue.empty())
+        while (ArrivalIndex != ProcessCount || !sjfQueue.empty())
         {
-            if(sjfQueue.empty()) {
-                CurTime = input[ArrivalIndex].ArivalTime;
-                while(ArrivalIndex != ProcessCount && input[ArrivalIndex].ArivalTime <= CurTime) {
+            if (sjfQueue.empty()) {
+                CurTime = input[ArrivalIndex].at;
+                while (ArrivalIndex != ProcessCount && input[ArrivalIndex].at <= CurTime) {
                     sjfQueue.push(input[ArrivalIndex]);
                     ArrivalIndex++;
                 }
             }
-            process WorkingProcess = sjfQueue.top();
+            Process WorkingProcess = sjfQueue.top();
             sjfQueue.pop();
 
 
-            AverageWaitTime += CurTime - WorkingProcess.ArivalTime;
-            CurTime += WorkingProcess.BurstTime;
-            AverageTurnAroundTime += CurTime - WorkingProcess.ArivalTime;
+            TotalWaitTime += CurTime - WorkingProcess.at;
+            CurTime += WorkingProcess.bt;
+            WorkingProcess.ct = CurTime;
 
-            while(ArrivalIndex != ProcessCount && input[ArrivalIndex].ArivalTime <= CurTime) {
-                    sjfQueue.push(input[ArrivalIndex]);
-                    ArrivalIndex++;
-                }
+            WorkingProcess.isCompleted = true;
+            WorkingProcess.tat = CurTime - WorkingProcess.at;
+
+            WorkingProcess.remaining_bt = 0;
+            WorkingProcess.isCompleted = true;
+
+            WorkingProcess.wt = WorkingProcess.tat - WorkingProcess.bt;
+
+            TotalTurnAroundTime += CurTime - WorkingProcess.at;
+
+            while (ArrivalIndex != ProcessCount && input[ArrivalIndex].at <= CurTime) {
+                sjfQueue.push(input[ArrivalIndex]);
+                ArrivalIndex++;
+            }
 
 
         }
         // calc average wait time and turn around time 
         finalize();
     }
+    
+private:
+    vector<Process>input;
+
+    // variables used for calculation
+    int TotalWaitTime; // = summation(StartTime-at)/ProcessCount
+    int TotalTurnAroundTime; // = summation(EndTime-StartTime)/ProcessCount
+    int ProcessCount;
+    int CurTime;
+
+    //constructor
+   
+
+    //Main Logic 
+    
 
     void initailize()
     {
-        AverageWaitTime = 0;
-        AverageTurnAroundTime = 0;
-        CurTime = 0 ; 
+        TotalWaitTime = 0;
+        TotalTurnAroundTime = 0;
+        CurTime = 0;
         ProcessCount = (int)input.size();
 
-        sjfQueue= priority_queue<process,vector<process>,decltype(& sjf::compsjf )>(sjf::compsjf);
-        sort(input.begin(),input.end(),sjf::compArivalTime);
+        sjfQueue = priority_queue<Process, vector<Process>, decltype(&sjf::compsjf)>(sjf::compsjf);
+        sort(input.begin(), input.end(), sjf::compat);
     }
 
     void finalize()
     {
-        AverageTurnAroundTime /= (ProcessCount == 0 ?  1:ProcessCount );
-        AverageWaitTime /= (ProcessCount == 0 ?  1:ProcessCount );
+        TotalTurnAroundTime /= (ProcessCount == 0 ? 1 : ProcessCount);
+        TotalWaitTime /= (ProcessCount == 0 ? 1 : ProcessCount);
     }
 };

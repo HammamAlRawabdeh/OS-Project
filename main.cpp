@@ -5,7 +5,6 @@
 #include <iomanip>
 #include "Process.cpp"
 #include "sjf.cpp"
-#include "fcfs.cpp"
 using namespace std;
 
 
@@ -14,6 +13,8 @@ void runRR(vector<Process> p, int time_quantum);
 void runSJF(vector<Process> p);
 void runPriority(vector<Process> p);
 void runSRTF(vector<Process> p);
+
+#include "fcfs.cpp"
 
 // Helper function for sorting by Arrival Time
 bool compareArrival(const Process& a, const Process& b) {

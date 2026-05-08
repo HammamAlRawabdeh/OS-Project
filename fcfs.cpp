@@ -1,3 +1,10 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+bool compareArrival(const Process& a, const Process& b);
+void printResults(const vector<Process>& p);
 void runFCFS(vector<Process> p) {
 
     if (p.empty()){

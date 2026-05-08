@@ -5,6 +5,7 @@
 #include <iomanip>
 #include "Process.cpp"
 #include "sjf.cpp"
+#include "fcfs.cpp"
 using namespace std;
 
 
@@ -207,10 +208,6 @@ void runPriority(vector<Process> p) {
     // Print final results table using the centralized print function
     printResults(p);
 
-}
-
-void runFCFS(vector<Process> p) {
-    cout << "\n[Assad's FCFS Logic Goes Here]\n";
 }
 
 void runRR(vector<Process> p, int time_quantum) {

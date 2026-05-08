@@ -14,12 +14,16 @@ void runSJF(vector<Process> p);
 void runPriority(vector<Process> p);
 void runSRTF(vector<Process> p);
 
+bool compareArrival(const Process& a, const Process& b);
+void printResults(const vector<Process>& p);
+
 #include "fcfs.cpp"
 
 // Helper function for sorting by Arrival Time
 bool compareArrival(const Process& a, const Process& b) {
     return a.getAt() < b.getAt();
 }
+
 
 // ==========================================
 // 3. MAIN EVALUATOR HUB

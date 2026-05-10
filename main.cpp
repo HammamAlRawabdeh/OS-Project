@@ -217,6 +217,78 @@ void runPriority(vector<Process> p) {
 
 void runRR(vector<Process> p, int time_quantum) {
     cout << "\n[Abdullah's RR Logic Goes Here]\n";
+
+    int n = p.size();
+
+    sort(p.begin(), p.end(), compareArrival);
+
+    int currentTime = p[0].getAt();
+    int completed = 0;
+
+    queue<int> readyQueue;
+    vector<bool> inQueue(n, false);
+
+    for (int i = 0; i < n; i++) {
+        if (p[i].getAt() <= currentTime) {
+            readyQueue.push(i);
+            inQueue[i] = true;
+        }
+    }
+
+    cout << "\n--- Execution Trace ---\n";
+
+    while (completed != n) {
+        if (readyQueue.empty()) {
+            cout << "Time " << currentTime << ": CPU is IDLE.\n";
+            int nextArrival = 999999;
+            for (int i = 0; i < n; i++) {
+                if (!p[i].getIsCompleted() && p[i].getAt() < nextArrival) {
+                    nextArrival = p[i].getAt();
+                }
+            }
+            currentTime = nextArrival;
+            for (int i = 0; i < n; i++) {
+                if (p[i].getAt() <= currentTime && !inQueue[i] && !p[i].getIsCompleted()) {
+                    readyQueue.push(i);
+                    inQueue[i] = true;
+                }
+            }
+            continue;
+        }
+
+        int j = readyQueue.front();
+        readyQueue.pop();
+
+        cout << "Time " << currentTime << ": Process " << p[j].getId() << " starts execution.\n";
+
+        if (p[j].getRemainingBt() <= time_quantum) {
+            currentTime += p[j].getRemainingBt();
+            p[j].setRemainingBt(0);
+            p[j].setCt(currentTime);
+            p[j].setTat(p[j].getCt() - p[j].getAt());
+            p[j].setWt(p[j].getTat() - p[j].getBt());
+            p[j].setCompleted(true);
+            completed++;
+            cout << "Time " << currentTime << ": Process " << p[j].getId() << " finishes.\n";
+        } else {
+            currentTime += time_quantum;
+            p[j].setRemainingBt(p[j].getRemainingBt() - time_quantum);
+            cout << "Time " << currentTime << ": Process " << p[j].getId() << " preempted (remaining: " << p[j].getRemainingBt() << ").\n";
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (p[i].getAt() <= currentTime && !inQueue[i] && !p[i].getIsCompleted()) {
+                readyQueue.push(i);
+                inQueue[i] = true;
+            }
+        }
+
+        if (!p[j].getIsCompleted()) {
+            readyQueue.push(j);
+        }
+    }
+
+    printResults(p);
 }
 
 void runSJF(vector<Process> p) {

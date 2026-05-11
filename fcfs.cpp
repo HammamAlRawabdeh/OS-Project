@@ -1,6 +1,9 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "Process.cpp"
+
 
 using namespace std;
 bool compareArrival(const Process& a, const Process& b);

@@ -1,4 +1,4 @@
-
+#pragma once
 #include<iostream>
 #include <queue>
 #include <vector>
@@ -33,7 +33,7 @@ public:
 
     int  getTotalWaitTime() const { return TotalWaitTime; }
     int  getTotalTurnAroundTime() const { return TotalTurnAroundTime; }
-    void answer()
+    vector<Process> answer()
     {
         // clean previous use and sort Processes on arrival time
         initailize();
@@ -67,7 +67,7 @@ public:
             WorkingProcess.wt = WorkingProcess.tat - WorkingProcess.bt;
 
             TotalTurnAroundTime += CurTime - WorkingProcess.at;
-
+            output.push_back(WorkingProcess);
             while (ArrivalIndex != ProcessCount && input[ArrivalIndex].at <= CurTime) {
                 sjfQueue.push(input[ArrivalIndex]);
                 ArrivalIndex++;
@@ -77,11 +77,12 @@ public:
         }
         // calc average wait time and turn around time 
         finalize();
+        return output;
     }
     
 private:
     vector<Process>input;
-
+    vector<Process>output;
     // variables used for calculation
     int TotalWaitTime; // = summation(StartTime-at)/ProcessCount
     int TotalTurnAroundTime; // = summation(EndTime-StartTime)/ProcessCount
@@ -107,6 +108,7 @@ private:
 
     void finalize()
     {
+        sort(output.begin(), output.end(), [](const Process& l, const Process& r) {return l.id < r.id; });
         TotalTurnAroundTime /= (ProcessCount == 0 ? 1 : ProcessCount);
         TotalWaitTime /= (ProcessCount == 0 ? 1 : ProcessCount);
     }

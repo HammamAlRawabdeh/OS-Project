@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <string>
@@ -6,6 +7,7 @@
 #include "Process.cpp"
 #include "sjf.cpp"
 using namespace std;
+
 
 
 void runFCFS(vector<Process> p);
@@ -17,7 +19,6 @@ void runSRTF(vector<Process> p);
 bool compareArrival(const Process& a, const Process& b);
 void printResults(const vector<Process>& p);
 
-#include "fcfs.cpp"
 
 // Helper function for sorting by Arrival Time
 bool compareArrival(const Process& a, const Process& b) {
@@ -293,7 +294,7 @@ void runRR(vector<Process> p, int time_quantum) {
 
 void runSJF(vector<Process> p) {
     sjf sjfScheduler(p);
-    sjfScheduler.answer();
+   p =  sjfScheduler.answer();
     printResults(p);
 }
 

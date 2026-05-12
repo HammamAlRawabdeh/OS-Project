@@ -30,6 +30,17 @@ Evaluate and compare scheduling algorithms using a shared, identical dataset bas
 1. Clone the repository:
    ```bash
    git clone https://github.com/HammamAlRawabdeh/OS-Project.git
+   cd OS-Project
+   ```
+2. Compile:
+   ```bash
+   g++ -o main main.cpp
+   ```
+3. Run:
+   ```bash
+   ./main
+   ```
+4. Follow the prompts to enter process data and select scheduling algorithms.
 
 ## 👥 Team Members
 

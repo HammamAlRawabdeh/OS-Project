@@ -6,6 +6,7 @@
 #include <iomanip>
 #include "Process.cpp"
 #include "sjf.cpp"
+#include "fcfs.cpp"
 using namespace std;
 
 

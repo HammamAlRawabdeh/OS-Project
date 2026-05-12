@@ -44,7 +44,7 @@ Evaluate and compare scheduling algorithms using a shared, identical dataset bas
 
 ## 👥 Team Members
 
-* Assad — FCFS
+* Asaad — FCFS
 * Ghaith — SJF
 * Abdullah — Round Robin
 * Hammam — Priority Scheduling (Non-Preemptive)

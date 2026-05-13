@@ -299,5 +299,67 @@ void runSJF(vector<Process> p) {
 }
 
 void runSRTF(vector<Process> p) {
-    cout << "\n[Khaled's SRTF Logic Goes Here]\n";
+      int n = p.size();
+    sort(p.begin(), p.end(), compareArrival);
+    
+    int currentTime = 0;
+    int completed = 0;
+    float totalTat = 0, totalWt = 0;
+    
+    for(int i = 0; i < n; i++) {
+        p[i].setRemainingBt(p[i].getBt());
+    }
+    
+    cout << "\n--- SRTF Execution Trace ---\n";
+    
+    while(completed != n) {
+        int shortestIndex = -1;
+        int shortestRemainingTime = 999999;
+        
+        for(int i = 0; i < n; i++) {
+            if(p[i].getAt() <= currentTime && 
+               !p[i].getIsCompleted() && 
+               p[i].getRemainingBt() < shortestRemainingTime) {
+                shortestRemainingTime = p[i].getRemainingBt();
+                shortestIndex = i;
+            }
+        }
+        
+        if(shortestIndex == -1) {
+            int nextArrival = 999999;
+            for(int i = 0; i < n; i++) {
+                if(!p[i].getIsCompleted() && p[i].getAt() < nextArrival) {
+                    nextArrival = p[i].getAt();
+                }
+            }
+            if(nextArrival != 999999) {
+                cout << "Time " << currentTime << "-" << nextArrival << ": CPU IDLE\n";
+                currentTime = nextArrival;
+            } else {
+                break; 
+            }
+            continue;
+        }
+        
+        cout << "Time " << currentTime << ": Process " << p[shortestIndex].getId() 
+             << " (remaining: " << p[shortestIndex].getRemainingBt() << ")\n";
+        
+        p[shortestIndex].setRemainingBt(p[shortestIndex].getRemainingBt() - 1);
+        currentTime++;
+        
+        if(p[shortestIndex].getRemainingBt() == 0) {
+            p[shortestIndex].setCt(currentTime);
+            p[shortestIndex].setTat(p[shortestIndex].getCt() - p[shortestIndex].getAt());
+            p[shortestIndex].setWt(p[shortestIndex].getTat() - p[shortestIndex].getBt());
+            p[shortestIndex].setCompleted(true);
+            completed++;
+            
+            cout << "Time " << currentTime << ": Process " << p[shortestIndex].getId() 
+                 << " COMPLETED (CT=" << p[shortestIndex].getCt() 
+                 << ", TAT=" << p[shortestIndex].getTat() 
+                 << ", WT=" << p[shortestIndex].getWt() << ")\n";
+        }
+    }
+    
+    printResults(p);
 }

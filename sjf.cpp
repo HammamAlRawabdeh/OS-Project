@@ -87,8 +87,8 @@ private:
     vector<Process>input;
     vector<Process>output;
     // variables used for calculation
-    int TotalWaitTime; // = summation(StartTime-at)/ProcessCount
-    int TotalTurnAroundTime; // = summation(EndTime-StartTime)/ProcessCount
+    double TotalWaitTime; // = summation(StartTime-at)/ProcessCount
+    double TotalTurnAroundTime; // = summation(EndTime-StartTime)/ProcessCount
     int ProcessCount;
     int CurTime;
 

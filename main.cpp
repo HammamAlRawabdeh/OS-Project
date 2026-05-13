@@ -115,7 +115,6 @@ int main() {
         }
     }
 
-    cout << "\nExiting Evaluator. Don't forget to compile your results for the final report!\n";
     return 0;
 }
 
@@ -126,28 +125,33 @@ void printResults(const vector<Process>& p) {
     int n = p.size();
     float totalTat = 0, totalWt = 0;
 
-    cout << "\n================ Final Results ================\n";
-    cout << "Process\tAT\tBT\tPri\tCT\tTAT\tWT\n";
-    cout << "-----------------------------------------------\n";
-    
+    cout << "\n========================== Final Results ==========================\n";
+    cout << left << setw(10) << "Process"
+         << setw(10) << "Arrival"
+         << setw(8)  << "Burst"
+         << setw(10) << "Priority"
+         << setw(13) << "Completion"
+         << setw(13) << "Turnaround"
+         << setw(10) << "Waiting" << "\n";
+    cout << "-------------------------------------------------------------------\n";
+
     for(int i = 0; i < n; i++) {
-        // Calculate totals dynamically here so the algorithms don't have to!
         totalTat += p[i].getTat();
         totalWt += p[i].getWt();
 
-        cout << p[i].getId() << "\t" 
-             << p[i].getAt() << "\t" 
-             << p[i].getBt() << "\t" 
-             << p[i].getPri() << "\t" 
-             << p[i].getCt() << "\t" 
-             << p[i].getTat() << "\t" 
-             << p[i].getWt() << "\n";
+        cout << left << setw(10) << p[i].getId()
+             << setw(10) << p[i].getAt()
+             << setw(8)  << p[i].getBt()
+             << setw(10) << p[i].getPri()
+             << setw(13) << p[i].getCt()
+             << setw(13) << p[i].getTat()
+             << setw(10) << p[i].getWt() << "\n";
     }
 
-    cout << "-----------------------------------------------\n";
+    cout << "-------------------------------------------------------------------\n";
     cout << "Average Turnaround Time = " << fixed << setprecision(2) << (totalTat / n) << "\n";
     cout << "Average Waiting Time    = " << fixed << setprecision(2) << (totalWt / n) << "\n";
-    cout << "===============================================\n";
+    cout << "===================================================================\n";
 }
 
 // ==========================================
@@ -155,9 +159,7 @@ void printResults(const vector<Process>& p) {
 // ==========================================
 
 void runPriority(vector<Process> p) {
-        cout << "\n[Hammam's Priority Logic Goes Here]\n";
-
-   int n = p.size();
+    int n = p.size();
     
     // Sort processes based on arrival time initially
     sort(p.begin(), p.end(), compareArrival);
@@ -218,8 +220,6 @@ void runPriority(vector<Process> p) {
 }
 
 void runRR(vector<Process> p, int time_quantum) {
-    cout << "\n[Abdullah's RR Logic Goes Here]\n";
-
     int n = p.size();
 
     sort(p.begin(), p.end(), compareArrival);

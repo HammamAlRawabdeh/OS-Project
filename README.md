@@ -4,7 +4,7 @@
 
 This project is developed for the Operating Systems course (CS11335). It focuses on implementing and comparing CPU scheduling algorithms to evaluate their performance. 
 
-To ensure highly accurate comparisons and adhere strictly to project guidelines, the team has engineered a **Centralized Interactive Evaluator** built entirely in C++. This CLI tool allows users to input a single set of processes and test them across multiple algorithms sequentially to observe differences in efficiency.
+The project uses a **Centralized Interactive Evaluator** built in C++. This CLI tool allows users to input a single set of processes and test them across multiple algorithms sequentially to compare their efficiency.
 
 ## ⚙️ Implemented Algorithms
 
@@ -52,12 +52,16 @@ Evaluate and compare scheduling algorithms using a shared, identical dataset bas
 
 ## 📊 Results
 
-The performance of each algorithm is evaluated using:
+Using a 5-process dataset (P1: AT=0 BT=5, P2: AT=2 BT=4, P3: AT=3 BT=2, P4: AT=15 BT=1, P5: AT=16 BT=3), the following results were obtained:
 
-* Average Waiting Time
-* Average Turnaround Time
+| Algorithm | Avg Turnaround Time | Avg Waiting Time |
+|-----------|---------------------|------------------|
+| FCFS      | 4.80                | 1.80             |
+| RR (q=2)  | 5.60                | 2.60             |
+| SJF       | 4.40                | 1.40             |
+| Priority  | 4.80                | 1.80             |
 
-Results are presented using tables.
+SJF achieved the lowest average waiting and turnaround times for this dataset by scheduling shorter jobs first. Round Robin had the highest averages due to the overhead of context switching with a small time quantum.
 
 ## 📄 Notes
 
@@ -66,12 +70,12 @@ This project follows course guidelines and includes both implementation and anal
 [View Report Grade Form](./Report_Grade_Form.pdf)
 
 
-## 🧠 How It Works (Under the Hood)
+## 🧠 How It Works
 
-To guarantee that our performance comparisons are 100% accurate, the evaluator uses a **Master State Architecture**:
-1. **Single Input Phase:** The user is prompted only once to enter the Arrival Time, Burst Time, and Priority for all processes. 
-2. **Data Encapsulation:** This data is stored in a master vector of `Process` objects, protecting the initial state.
-3. **Pass-by-Value Execution:** When the user selects an algorithm from the menu, the evaluator passes a *fresh copy* of the master list to the function. This ensures that process mutations (like updating remaining burst times or marking a process as completed) do not corrupt the data for the next algorithm.
+The evaluator ensures fair comparisons by keeping the original input unchanged across all algorithm runs:
+1. **Single Input Phase:** The user enters Arrival Time, Burst Time, and Priority for all processes once.
+2. **Data Encapsulation:** Process data is stored in a vector of `Process` objects using getters and setters.
+3. **Pass-by-Value Execution:** Each algorithm receives a fresh copy of the process list, so modifications (like marking a process as completed) don't affect subsequent runs.
 
 ## 💻 Sample Execution
 
@@ -114,18 +118,18 @@ Time 16: Process P4 finishes.
 Time 16: Process P5 starts execution.
 Time 19: Process P5 finishes.
 
-================ Final Results ================
-Process AT      BT      Pri     CT      TAT     WT
------------------------------------------------
-P1      0       5       3       5       5       0
-P2      2       4       1       9       7       3
-P3      3       2       4       11      8       6
-P4      15      1       2       16      1       0
-P5      16      3       5       19      3       0
------------------------------------------------
+========================== Final Results ==========================
+Process   Arrival   Burst   Priority  Completion   Turnaround   Waiting
+-------------------------------------------------------------------
+P1        0         5       3         5            5            0
+P2        2         4       1         9            7            3
+P3        3         2       4         11           8            6
+P4        15        1       2         16           1            0
+P5        16        3       5         19           3            0
+-------------------------------------------------------------------
 Average Turnaround Time = 4.80
 Average Waiting Time    = 1.80
-===============================================
+===================================================================
 
 Do you want to try another algorithm for the same processes? (y/n):
 

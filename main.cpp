@@ -21,14 +21,14 @@ bool compareArrival(const Process& a, const Process& b);
 void printResults(const vector<Process>& p);
 
 
-// Helper function for sorting by Arrival Time
+// function for sorting by Arrival Time
 bool compareArrival(const Process& a, const Process& b) {
     return a.getAt() < b.getAt();
 }
 
 
 // ==========================================
-// 3. MAIN EVALUATOR HUB
+// 1. MAIN
 // ==========================================
 int main() {
     int n;
@@ -84,11 +84,10 @@ int main() {
         if (it != available_algos.end()) {
             cout << "\n>>> Running " << choice << " <<<\n";
             
-            // Execute the chosen algorithm, passing a FRESH COPY of the processes
-            // EXTREMELY IMPORTANT: We are passing 'original_processes' to the functions.
+            // We execute the chosen algorithm by passing a FRESH COPY of the processes
+            // We are passing original_processes to the functions
             // Because the functions are defined as (vector<Process> p) and NOT (vector<Process> &p),
-            // C++ makes a fresh copy of the master list for each algorithm. 
-            // This prevents one algorithm from accidentally marking all processes as 'completed' for the next one!
+            // This prevents one algorithm from accidentally marking all processes as "completed" for the next one
             if (choice == "FCFS") runFCFS(original_processes);
             else if (choice == "RR") {
                 int tq;
@@ -119,7 +118,7 @@ int main() {
 }
 
 // ==========================================
-// 4.  CENTRALIZED PRINT FUNCTION
+// 2.  PRINT FUNCTION
 // ==========================================
 void printResults(const vector<Process>& p) {
     int n = p.size();
@@ -155,7 +154,7 @@ void printResults(const vector<Process>& p) {
 }
 
 // ==========================================
-// 5. TEAM MEMBER FUNCTIONS
+// 3. TEAM MEMBERS FUNCTIONS
 // ==========================================
 
 void runPriority(vector<Process> p) {
@@ -181,7 +180,7 @@ void runPriority(vector<Process> p) {
                     highestPriority = p[i].getPri();
                     highestPriIndex = i;
                 }
-                // Tie-breaker by arrival time
+                // if priority is the same we choose by arrival time
                 else if (p[i].getPri() == highestPriority) {
                     if (p[i].getAt() < p[highestPriIndex].getAt()) {
                         highestPriIndex = i;
@@ -190,7 +189,7 @@ void runPriority(vector<Process> p) {
             }
         }
 
-        // If a process was found, execute it
+        // If a process was found execute it
         if (highestPriIndex != -1) {
             int l = highestPriIndex;
             cout << "Time " << currentTime << ": Process " << p[l].getId() << " starts execution.\n";
@@ -208,13 +207,13 @@ void runPriority(vector<Process> p) {
             
             cout << "Time " << currentTime << ": Process " << p[l].getId() << " finishes.\n";
         } else {
-            // No process has arrived yet, CPU is idle
+            // No process has arrived yet so CPU is idle
             cout << "Time " << currentTime << ": CPU is IDLE.\n";
             currentTime++; 
         }
     }
 
-    // Print final results table using the centralized print function
+    // Print final result
     printResults(p);
 
 }

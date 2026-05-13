@@ -5,7 +5,6 @@
 #include<vector>
 using namespace std;
 
-// process class alone
 class sjf;
 class Process {
 protected:
@@ -25,9 +24,7 @@ public:
     // Constructor
     Process() : id(""), at(0), bt(0), pri(0), ct(0), tat(0), wt(0), remaining_bt(0), isCompleted(false) {}
 
-    // --- GETTERS ---
-    // TEAM REMINDER: Because variables are private, you cannot write p[i].bt anymore.
-    // You MUST use these functions to read data. Example: if (p[i].getAt() <= time)
+    //  GETTERS 
     string getId() const { return id; }
     int getAt() const { return at; }
     int getBt() const { return bt; }
@@ -39,9 +36,7 @@ public:
     bool getIsCompleted() const { return isCompleted; }
 
 
-    // --- SETTERS WITH VALIDATION ---
-    // TEAM REMINDER: You MUST use these functions to modify data. 
-    // Example: To update completion time, write p[i].setCt(currentTime);    
+    //SETTERS
     void setId(string new_id) {
         if (!new_id.empty()) id = new_id;
         else cout << "Warning: ID cannot be empty.\n";
@@ -66,7 +61,7 @@ public:
         }
     }
 
-    void setPri(int new_pri) { pri = new_pri; } // Priorities can theoretically be negative, so we allow it.
+    void setPri(int new_pri) { pri = new_pri; } // Priorities can theoreticaly be negative, so we allow it.
     
     void setCt(int new_ct) { if (new_ct >= 0) ct = new_ct; }
     void setTat(int new_tat) { if (new_tat >= 0) tat = new_tat; }

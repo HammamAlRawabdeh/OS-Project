@@ -40,42 +40,45 @@ public:
 
         // main logic 
 
-        int ArrivalIndex = 0;
-        while (ArrivalIndex != ProcessCount || !sjfQueue.empty())
-        {
-            if (sjfQueue.empty()) {
-                CurTime = input[ArrivalIndex].at;
-                while (ArrivalIndex != ProcessCount && input[ArrivalIndex].at <= CurTime) {
-                    sjfQueue.push(input[ArrivalIndex]);
-                    ArrivalIndex++;
-                }
-            }
-            Process WorkingProcess = sjfQueue.top();
-            sjfQueue.pop();
-
-
-            TotalWaitTime += CurTime - WorkingProcess.at;
-            CurTime += WorkingProcess.bt;
-            WorkingProcess.ct = CurTime;
-
-            WorkingProcess.isCompleted = true;
-            WorkingProcess.tat = CurTime - WorkingProcess.at;
-
-            WorkingProcess.remaining_bt = 0;
-            WorkingProcess.isCompleted = true;
-
-            WorkingProcess.wt = WorkingProcess.tat - WorkingProcess.bt;
-
-            TotalTurnAroundTime += CurTime - WorkingProcess.at;
-            output.push_back(WorkingProcess);
-            while (ArrivalIndex != ProcessCount && input[ArrivalIndex].at <= CurTime) {
-                sjfQueue.push(input[ArrivalIndex]);
-                ArrivalIndex++;
-            }
-
-
+int ArrivalIndex = 0;
+while (ArrivalIndex != ProcessCount || !sjfQueue.empty())
+{
+    if (sjfQueue.empty()) {
+        CurTime = input[ArrivalIndex].at;
+        while (ArrivalIndex != ProcessCount && input[ArrivalIndex].at <= CurTime) {
+            sjfQueue.push(input[ArrivalIndex]);
+            ArrivalIndex++;
         }
-        // calc average wait time and turn around time 
+    }
+    Process WorkingProcess = sjfQueue.top();
+    sjfQueue.pop();
+
+    cout << "Time " << CurTime << ": Process " << WorkingProcess.getId() << " starts execution.\n";
+
+    TotalWaitTime += CurTime - WorkingProcess.getAt();
+    CurTime += WorkingProcess.getBt();
+    cout << "Time " << CurTime << ": Process " << WorkingProcess.getId() << " finishes.\n";
+
+    WorkingProcess.setCt(CurTime);
+
+    WorkingProcess.setCompleted(true);
+    WorkingProcess.setTat(CurTime - WorkingProcess.getAt());
+
+    WorkingProcess.setRemainingBt(0);
+    WorkingProcess.setCompleted(true);
+
+    WorkingProcess.setWt(WorkingProcess.getTat() - WorkingProcess.getBt());
+
+    TotalTurnAroundTime += CurTime - WorkingProcess.getAt() ;
+    output.push_back(WorkingProcess);
+    while (ArrivalIndex != ProcessCount && input[ArrivalIndex].at <= CurTime) {
+        sjfQueue.push(input[ArrivalIndex]);
+        ArrivalIndex++;
+    }
+
+
+}
+// calc average wait time and turn around time 
         finalize();
         return output;
     }

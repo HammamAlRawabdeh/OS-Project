@@ -29,14 +29,16 @@ Evaluate and compare scheduling algorithms using a shared, identical dataset bas
 
 You can run this project either through an IDE or through the terminal.
 
-### Option 1: Run through an IDE
+### Option 1 : Download and Run Porject1.exe (may or may not work depending on Operating system and CPU architicture of the system)
+
+### Option 2: Run through an IDE
 
 1. Open the project folder in a C++ IDE.
 2. Make sure `main.cpp` and all required files are included in the project.
 3. Run the program from the IDE terminal.
 4. Follow the prompts to enter process data and select scheduling algorithms.
 
-### Option 2: Run through the terminal
+### Option 3: Run through the terminal
 
 1. Clone the repository:
    ```bash

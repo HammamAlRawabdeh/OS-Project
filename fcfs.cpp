@@ -8,7 +8,7 @@
 using namespace std;
 bool compareArrival(const Process& a, const Process& b);
 void printResults(const vector<Process>& p);
-void runFCFS(vector<Process> p) {
+inline void runFCFS(vector<Process> p) {
 
     if (p.empty()){
     cout << "\nVector p is empty\n";
